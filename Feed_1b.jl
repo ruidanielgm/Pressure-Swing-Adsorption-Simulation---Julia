@@ -1,7 +1,7 @@
 using ModelingToolkit, MethodOfLines, OrdinaryDiffEq, DomainSets;
 
 #System Configurations:
-yinfeed = [0.25, 0.75];
+yinfeed = [0.25, 0.75]; #CH4 and CO2
 y_start = [1, 0];
 t_max = 12000;
 
@@ -154,17 +154,14 @@ bcs = [
         q1(z,t),q2(z,t),q1star(z,t),q2star(z,t), Pmp1(z,t), Pmp2(z,t), S1(z,t), S2(z,t), P(z,t), u0(z,t), Mw(z,t)])
 
 #Discretization
-N = 10
+N = 10 #<-- Increasing this is causing instability on the solver. To be evaluated when the model is fixed and, then, try to evaluate solver parameters.
 order = 2
 
 discretization = MOLFiniteDifference([z=>N], 
                                       t,
-                                      #advection_scheme = WENOScheme(), 
+                                      #advection_scheme = WENOScheme(), #<-- Using the WenoScheme isnt working
                                       advection_scheme = UpwindScheme(),
                                       approx_order = order, 
-                                      #grid_align = <your grid type choice>,
-                                      #should_transform = <Whether to automatically transform the PDESystem (see below)>
-                                      #use_ODAE = <Whether to use ODAEProblem>
                                       )
 prob = discretize(pdesys, discretization)
 
@@ -211,6 +208,8 @@ display(h_u0)
 h_P = plot(discrete_t, P_solution[end, :], title="P history", xlabel="t", ylabel="u0", label="P(z=L,t)")
 display(h_P)
 
+
+#profiles
 desired_time = 500
 time_input = floor(Int, desired_time / save_time)
 
