@@ -31,4 +31,6 @@ Currently, I've implemented the mass balance and momentum balance. However, it p
 If you need further assistance with specific parts of your code or have more details to share about the issues, feel free to let me know!
 
 
-As an example, I'm simulating a system of two components: CH4 and CO2. The initial and the feed composition can be changed
+As an example, I'm simulating a system of two components: CH4 and CO2. The initial and the feed composition can be changed.
+
+You can find the code at "Feed_1b" as I'm developing a code for the feed step and I'm on task 1b). Newer versions will be added with the name of the corresponding step of the work.
